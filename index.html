@@ -378,7 +378,7 @@ body.dark-mode #iconModalTitle {
 </head>
 
 <body>
-  <h1>ホル式戦術対抗戦マップ　-シッテムの箱- 2054</h1>
+  <h1>ホル式戦術対抗戦マップ　-シッテムの箱-</h1>
   
   <div class="container">
     <div class="left-panel">
@@ -2128,33 +2128,43 @@ let isIconModeOn = false;
 // ロード済み画像キャッシュ
 const iconImageCache = {};
 
-// アイコンファイル一覧の取得元（GitHub Actionsが自動生成するJSON）
-const FILELIST_URL = "students/filelist.json";
-const ICON_BASE_URL = "students/";
+// フォルダ設定
+const ICON_FOLDERS = [
+  { folder: "students",    api: "https://api.github.com/repos/HCHO15/forpvp2.3.0/contents/students" },
+  { folder: "studentssub", api: "https://api.github.com/repos/HCHO15/forpvp2.3.0/contents/studentssub" },
+];
+const ICON_BASE_URL = "";  // フォルダ名はentryに含まれるため空
 
 // アイコンエントリ: { filename, folder } の配列
 let allIconFiles = [];
 
-/** students/filelist.json を読み込んでアイコン一覧を構築
- *  main（実装済み）を先、sub（_n・未実装）を後に並べる */
+/** 各フォルダのファイル一覧をGitHub APIで取得し結合
+ *  studentsフォルダを五十音順、次にstudentssubフォルダを五十音順で並べる */
 async function fetchIconFileList() {
-  try {
-    const res = await fetch(FILELIST_URL);
-    if (!res.ok) throw new Error("filelist.json の取得に失敗: " + res.status);
-    const json = await res.json();
+  const fetchFolder = async ({ folder, api }) => {
+    try {
+      const res = await fetch(api);
+      if (!res.ok) throw new Error("API error: " + res.status);
+      const json = await res.json();
+      return json
+        .filter(f => f.type === "file" && /\.(png|jpg|jpeg|webp|gif)$/i.test(f.name))
+        .map(f => ({ filename: f.name, folder }))
+        .sort((a, b) => a.filename.localeCompare(b.filename, "ja"));
+    } catch (e) {
+      console.warn(`アイコン一覧の取得に失敗しました (${folder}):`, e);
+      return [];
+    }
+  };
 
-    const toEntries = arr => (arr || []).map(f => ({ filename: f, folder: "students" }));
-    allIconFiles = [...toEntries(json.main), ...toEntries(json.sub)];
-  } catch (e) {
-    console.warn("アイコン一覧の取得に失敗しました:", e);
-    allIconFiles = [];
-  }
+  const results = await Promise.all(ICON_FOLDERS.map(fetchFolder));
+  allIconFiles = results.flat();
 }
 
 /** ファイル名からパスを返す */
 function iconSrc(entry) {
   const filename = typeof entry === "string" ? entry : entry.filename;
-  return ICON_BASE_URL + encodeURIComponent(filename);
+  const folder   = (typeof entry === "object" && entry.folder) ? entry.folder : "students";
+  return `${folder}/${encodeURIComponent(filename)}`;
 }
 
 /** 画像を非同期でプリロード（キャッシュ済みなら即返す）*/
@@ -2506,10 +2516,9 @@ document.getElementById("iconSearchInput").addEventListener("input", e => {
 document.querySelectorAll("input[name='iconMode']").forEach(r =>
   r.addEventListener("change", e => {
     isIconModeOn = (e.target.value === "on");
-    // ONになった時点でアイコン一覧を取得（まだなら）
+    localStorage.setItem("iconMode", e.target.value);
     if (isIconModeOn && allIconFiles.length === 0) {
       fetchIconFileList().then(() => {
-        // モーダルが開いていれば再レンダリング
         if (document.getElementById("iconModal").style.display === "flex") {
           renderIconGrid(document.getElementById("iconSearchInput").value);
         }
@@ -2518,6 +2527,17 @@ document.querySelectorAll("input[name='iconMode']").forEach(r =>
     redraw();
   })
 );
+
+// ページ読み込み時にiconModeを復元
+(function restoreIconMode() {
+  const saved = localStorage.getItem("iconMode");
+  if (saved === "on") {
+    isIconModeOn = true;
+    const radio = document.querySelector("input[name='iconMode'][value='on']");
+    if (radio) radio.checked = true;
+    fetchIconFileList();
+  }
+})();
 
 function redraw() {
   clearCanvas();
