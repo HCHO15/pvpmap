@@ -1,0 +1,55 @@
+name: Generate filelist.json
+
+on:
+  push:
+    paths:
+      - 'students/**'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate students/filelist.json
+        run: |
+          python3 - <<'EOF'
+          import os, json, re
+
+          folder = "students"
+          exts = {".png", ".jpg", ".jpeg", ".webp", ".gif"}
+
+          files = [
+            f for f in os.listdir(folder)
+            if os.path.isfile(os.path.join(folder, f))
+            and os.path.splitext(f)[1].lower() in exts
+          ]
+
+          # _n で終わるファイルと終わらないファイルに分類
+          def is_sub(name):
+            return bool(re.search(r'_n\.[^.]+$', name, re.IGNORECASE))
+
+          main = sorted([f for f in files if not is_sub(f)], key=lambda s: s)
+          sub  = sorted([f for f in files if     is_sub(f)], key=lambda s: s)
+
+          result = { "main": main, "sub": sub }
+
+          out_path = os.path.join(folder, "filelist.json")
+          with open(out_path, "w", encoding="utf-8") as fp:
+            json.dump(result, fp, ensure_ascii=False, indent=2)
+
+          print(f"Generated {out_path}: {len(main)} main, {len(sub)} sub")
+          EOF
+
+      - name: Commit filelist.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add students/filelist.json
+          git diff --cached --quiet || git commit -m "chore: update students/filelist.json"
+          git push
