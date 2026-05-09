@@ -378,7 +378,7 @@ body.dark-mode #iconModalTitle {
 </head>
 
 <body>
-  <h1>ホル式戦術対抗戦マップ　-シッテムの箱- </h1>
+  <h1>ホル式戦術対抗戦マップ　-シッテムの箱- 2054</h1>
   
   <div class="container">
     <div class="left-panel">
@@ -2128,24 +2128,23 @@ let isIconModeOn = false;
 // ロード済み画像キャッシュ
 const iconImageCache = {};
 
-// GitHubリポジトリ情報
-const GITHUB_API_URL = "https://api.github.com/repos/HCHO15/forpvp2.3.0/contents/students";
-const ICON_BASE_URL  = "students/";
+// アイコンファイル一覧の取得元（GitHub Actionsが自動生成するJSON）
+const FILELIST_URL = "students/filelist.json";
+const ICON_BASE_URL = "students/";
 
 // アイコンエントリ: { filename, folder } の配列
-// folder は "students" または "studentssub"
 let allIconFiles = [];
 
-/** GitHub API でアイコンファイル一覧を取得し五十音順に並べる */
+/** students/filelist.json を読み込んでアイコン一覧を構築
+ *  main（実装済み）を先、sub（_n・未実装）を後に並べる */
 async function fetchIconFileList() {
   try {
-    const res = await fetch(GITHUB_API_URL);
-    if (!res.ok) throw new Error("API error: " + res.status);
+    const res = await fetch(FILELIST_URL);
+    if (!res.ok) throw new Error("filelist.json の取得に失敗: " + res.status);
     const json = await res.json();
-    allIconFiles = json
-      .filter(f => f.type === "file" && /\.(png|jpg|jpeg|webp|gif)$/i.test(f.name))
-      .map(f => ({ filename: f.name, folder: "students" }))
-      .sort((a, b) => a.filename.localeCompare(b.filename, "ja"));
+
+    const toEntries = arr => (arr || []).map(f => ({ filename: f, folder: "students" }));
+    allIconFiles = [...toEntries(json.main), ...toEntries(json.sub)];
   } catch (e) {
     console.warn("アイコン一覧の取得に失敗しました:", e);
     allIconFiles = [];
