@@ -175,15 +175,22 @@
       width: 100%;
       margin-bottom: 8px;
       font-size: 12px;
+      table-layout: fixed;
     }
     th, td {
       border: 1px solid #ccc;
       padding: 2px 4px;
       text-align: center;
+      overflow: hidden;
     }
     th {
       background: #f0f0f0;
     }
+    /* 固定幅列 */
+    th:nth-child(1), td:nth-child(1) { width: 20px; }  /* # */
+    th:nth-child(2), td:nth-child(2) { width: 44px; }  /* 生徒 */
+    th:nth-child(5), td:nth-child(5) { width: 32px; }  /* 基準 */
+    /* x・y列は残りを均等に自動配分 */
 
     #rangeControls {
       display: none;
