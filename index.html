@@ -655,7 +655,7 @@ body.dark-mode .icon-tab.active {
       <div class="table-title">赤点座標</div>
       <table>
         <thead>
-          <tr><th>#</th><th>x</th><th>y</th><th>基準</th><th>キャラ</th></tr>
+          <tr><th>#</th><th>生徒</th><th>x</th><th>y</th><th>基準</th></tr>
         </thead>
         <tbody id="redTableBody"></tbody>
       </table>
@@ -663,7 +663,7 @@ body.dark-mode .icon-tab.active {
       <div class="table-title">青点座標</div>
       <table>
         <thead>
-          <tr><th>#</th><th>x</th><th>y</th><th>基準</th><th>キャラ</th></tr>
+          <tr><th>#</th><th>生徒</th><th>x</th><th>y</th><th>基準</th></tr>
         </thead>
         <tbody id="blueTableBody"></tbody>
       </table>
@@ -1160,20 +1160,20 @@ function initTables() {
     const redRow = document.createElement("tr");
     redRow.innerHTML = `
       <td>${i}</td>
+      <td class="icon-table-cell" id="iconCell_red_${i}"></td>
       ${makeCoordCell("red", i, "x")}
       ${makeCoordCell("red", i, "y")}
       <td><input type="radio" name="redBase" data-color="red" data-id="${i}"></td>
-      <td class="icon-table-cell" id="iconCell_red_${i}"></td>
     `;
     redTableBody.appendChild(redRow);
 
     const blueRow = document.createElement("tr");
     blueRow.innerHTML = `
       <td>${i}</td>
+      <td class="icon-table-cell" id="iconCell_blue_${i}"></td>
       ${makeCoordCell("blue", i, "x")}
       ${makeCoordCell("blue", i, "y")}
       <td><input type="radio" name="blueBase" data-color="blue" data-id="${i}"></td>
-      <td class="icon-table-cell" id="iconCell_blue_${i}"></td>
     `;
     blueTableBody.appendChild(blueRow);
   }
