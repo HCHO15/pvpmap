@@ -612,115 +612,110 @@ body.dark-mode .icon-tab.active {
 </head>
 
 <body>
-  <h1>ホル式戦術対抗戦マップ　-シッテムの箱-</h1>
+  <h1 data-i18n="title">ホル式戦術対抗戦マップ　-シッテムの箱-</h1>
   
   <div class="container">
     <div class="left-panel">
 
       <div class="controls">
         <div id="colorRocker">
-          <button id="rockerBlue" class="rocker-btn rocker-active">青</button>
-          <button id="rockerRed"  class="rocker-btn">赤</button>
+          <button id="rockerBlue" class="rocker-btn rocker-active" data-i18n="blue">青</button>
+          <button id="rockerRed"  class="rocker-btn" data-i18n="red">赤</button>
         </div>
-        <button id="btnReset">リセット</button>
-        <button id="btnSave">画像保存</button>
-        <button id="btnCopyUrl">🔗 URLをコピー</button>
+        <button id="btnReset" data-i18n="reset">リセット</button>
+        <button id="btnSave" data-i18n="saveImage">画像保存</button>
+        <button id="btnCopyUrl">🔗 <span data-i18n="copyUrl">URLをコピー</span></button>
 
         <select id="modeSelect">
-          <option value="0">攻撃SP</option>
-          <option value="1">バフSP</option>
-          <option value="2">攻撃ST</option>
-          <option value="3">バフST</option>
-          <option value="4">範囲確認</option>
+          <option value="0" data-i18n="modeAtkSP">攻撃SP</option>
+          <option value="1" data-i18n="modeBufSP">バフSP</option>
+          <option value="2" data-i18n="modeAtkST">攻撃ST</option>
+          <option value="3" data-i18n="modeBufST">バフST</option>
+          <option value="4" data-i18n="modeRange">範囲確認</option>
         </select>
 
       <label style="display:flex; align-items:center; gap:4px;">
         <input type="checkbox" id="chkSummon">
-        召喚物を考慮
+        <span data-i18n="summon">召喚物を考慮</span>
       </label>
-        <button id="btnSettings" style="margin-left:auto;">設定</button>
+        <button id="btnSettings" style="margin-left:auto;" data-i18n="settings">設定</button>
       </div>
 
       <div id="rangeControls">
 
-  <!-- ★ 半径行を flex で綺麗に整列 -->
   <div style="display:flex; align-items:center; gap:6px;">
-
-    <span>半径(cm)：</span>
-
+    <span data-i18n="radius">半径(cm)：</span>
     <input type="range" id="radiusSlider" min="50" max="1200" step="10" value="700">
     <span id="radiusValue">700</span>
-
-    <!-- ★ ±10 ボタン（縦並び・小型） -->
     <div style="display:flex; flex-direction:column; margin-left:4px;">
       <button id="radiusPlus"  style="font-size:10px; padding:1px 4px; line-height:10px;">▲</button>
       <button id="radiusMinus" style="font-size:10px; padding:1px 4px; line-height:10px;">▼</button>
     </div>
 
     <select id="shortcutSelect">
-      <option value="manual">手動</option>
-      <option value="atsukoEX">アツコEX</option>
-      <option value="atsukoNS">アツコNS</option>
-      <option value="aliceEX">アリスEX</option>
-      <option value="aliceRinsenEX">アリス（臨戦）EX</option>
-      <option value="aruNewyearEX">アル（正月）EX</option>
-      <option value="ioriEX">イオリEX</option>
-      <option value="irihaEXNS">イロハEXNS</option>
-      <option value="kanoeNS">カノエNS</option>
-      <option value="kirinoNS">キリノNS※単体攻撃</option>
-      <option value="kotoriCheerEX">コトリ（応援団）EX</option>
-      <option value="konokaEX">コノカEX</option>
-      <option value="koharuMizugiEX">コハル（水着）EX</option>
-      <option value="koyukiNS">コユキNS</option>
-      <option value="sakiEX">サキEX</option>
-      <option value="sayaCasualEX">サヤ（私服）EX</option>
-      <option value="shirokoRidingNS">シロコ（ライディング）NS</option>
-      <option value="shunEXAA">シュンEXAA</option>
-      <option value="junkoEX">ジュンコEX</option>
-      <option value="sumireEX">スミレEX</option>
-      <option value="tsubakiEX">ツバキEX</option>
-      <option value="tsurugiEXAA">ツルギEXAA</option>
-      <option value="tokiEX">トキEX</option>
-      <option value="nagisaEX">ナギサEX</option>
-      <option value="nonomiEX">ノノミEX</option>
-      <option value="hasumiMizugiEX">ハスミ（水着）EX</option>
-      <option value="hanakoMizugiEX">ハナコ（水着）EX</option>
-      <option value="harunaNewyearEX">ハルナ（正月）EX</option>
-      <option value="hinaDressEX">ヒナ（ドレス）EX</option>
-      <option value="hinaMizugiEX">ヒナ（水着）EX</option>
-      <option value="hinataEX">ヒナタEX</option>
-      <option value="hinataMizugiNS">ヒナタ（水着）NS</option>
-      <option value="hibikiEX">ヒビキEX</option>
-      <option value="hibikiNS">ヒビキNS※対象を選択</option>
-      <option value="hihumiEX">ヒフミEX</option>
-      <option value="hiyoriMizugiEX">ヒヨリ（水着）EX</option>
-      <option value="hoshinoRinsenEX">ホシノ（臨戦）EX</option>
-      <option value="hoshinoRinsenSS">ホシノ（臨戦）SS</option>
-      <option value="marinaEX">マリナEX</option>
-      <option value="minoriEX">ミノリEX</option>
-      <option value="minoriNS">ミノリNS</option>
-      <option value="mutsukiNewyearEX">ムツキ（正月）EX</option>
-      <option value="mutsukiNewyearNS">ムツキ（正月）NS</option>
-      <option value="meguAA">メグAA</option>
-      <option value="meguEX">メグEX</option>
-      <option value="yakumoEX">ヤクモEX</option>
-      <option value="yuzuEX">ユズEX</option>
-      <option value="yuzuNS">ユズNS※対象を選択</option>
-      <option value="reisaEX">レイサEX</option>
-      <option value="reisaMagicEX">レイサ（マジカル）EXPS</option>
+      <option value="manual" data-i18n="scManual">手動</option>
+      <option value="atsukoEX" data-i18n="scAtsukoEX">アツコEX</option>
+      <option value="atsukoNS" data-i18n="scAtsukoNS">アツコNS</option>
+      <option value="aliceEX" data-i18n="scAliceEX">アリスEX</option>
+      <option value="aliceRinsenEX" data-i18n="scAliceRinsenEX">アリス（臨戦）EX</option>
+      <option value="aruNewyearEX" data-i18n="scAruNewyearEX">アル（正月）EX</option>
+      <option value="ioriEX" data-i18n="scIoriEX">イオリEX</option>
+      <option value="irihaEXNS" data-i18n="scIrihaEXNS">イロハEXNS</option>
+      <option value="kanoeNS" data-i18n="scKanoeNS">カノエNS</option>
+      <option value="kirinoNS" data-i18n="scKirinoNS">キリノNS※単体攻撃</option>
+      <option value="kotoriCheerEX" data-i18n="scKotoriCheerEX">コトリ（応援団）EX</option>
+      <option value="konokaEX" data-i18n="scKonokaEX">コノカEX</option>
+      <option value="koharuMizugiEX" data-i18n="scKoharuMizugiEX">コハル（水着）EX</option>
+      <option value="koyukiNS" data-i18n="scKoyukiNS">コユキNS</option>
+      <option value="sakiEX" data-i18n="scSakiEX">サキEX</option>
+      <option value="sayaCasualEX" data-i18n="scSayaCasualEX">サヤ（私服）EX</option>
+      <option value="shirokoRidingNS" data-i18n="scShirokoRidingNS">シロコ（ライディング）NS</option>
+      <option value="shunEXAA" data-i18n="scShunEXAA">シュンEXAA</option>
+      <option value="junkoEX" data-i18n="scJunkoEX">ジュンコEX</option>
+      <option value="sumireEX" data-i18n="scSumireEX">スミレEX</option>
+      <option value="tsubakiEX" data-i18n="scTsubakiEX">ツバキEX</option>
+      <option value="tsurugiEXAA" data-i18n="scTsurugiEXAA">ツルギEXAA</option>
+      <option value="tokiEX" data-i18n="scTokiEX">トキEX</option>
+      <option value="nagisaEX" data-i18n="scNagisaEX">ナギサEX</option>
+      <option value="nonomiEX" data-i18n="scNonomiEX">ノノミEX</option>
+      <option value="hasumiMizugiEX" data-i18n="scHasumiMizugiEX">ハスミ（水着）EX</option>
+      <option value="hanakoMizugiEX" data-i18n="scHanakoMizugiEX">ハナコ（水着）EX</option>
+      <option value="harunaNewyearEX" data-i18n="scHarunaNewyearEX">ハルナ（正月）EX</option>
+      <option value="hinaDressEX" data-i18n="scHinaDressEX">ヒナ（ドレス）EX</option>
+      <option value="hinaMizugiEX" data-i18n="scHinaMizugiEX">ヒナ（水着）EX</option>
+      <option value="hinataEX" data-i18n="scHinataEX">ヒナタEX</option>
+      <option value="hinataMizugiNS" data-i18n="scHinataMizugiNS">ヒナタ（水着）NS</option>
+      <option value="hibikiEX" data-i18n="scHibikiEX">ヒビキEX</option>
+      <option value="hibikiNS" data-i18n="scHibikiNS">ヒビキNS※対象を選択</option>
+      <option value="hihumiEX" data-i18n="scHihumiEX">ヒフミEX</option>
+      <option value="hiyoriMizugiEX" data-i18n="scHiyoriMizugiEX">ヒヨリ（水着）EX</option>
+      <option value="hoshinoRinsenEX" data-i18n="scHoshinoRinsenEX">ホシノ（臨戦）EX</option>
+      <option value="hoshinoRinsenSS" data-i18n="scHoshinoRinsenSS">ホシノ（臨戦）SS</option>
+      <option value="marinaEX" data-i18n="scMarinaEX">マリナEX</option>
+      <option value="minoriEX" data-i18n="scMinoriEX">ミノリEX</option>
+      <option value="minoriNS" data-i18n="scMinoriNS">ミノリNS</option>
+      <option value="mutsukiNewyearEX" data-i18n="scMutsukiNewyearEX">ムツキ（正月）EX</option>
+      <option value="mutsukiNewyearNS" data-i18n="scMutsukiNewyearNS">ムツキ（正月）NS</option>
+      <option value="meguAA" data-i18n="scMeguAA">メグAA</option>
+      <option value="meguEX" data-i18n="scMeguEX">メグEX</option>
+      <option value="yakumoEX" data-i18n="scYakumoEX">ヤクモEX</option>
+      <option value="yuzuEX" data-i18n="scYuzuEX">ユズEX</option>
+      <option value="yuzuNS" data-i18n="scYuzuNS">ユズNS※対象を選択</option>
+      <option value="reisaEX" data-i18n="scReisaEX">レイサEX</option>
+      <option value="reisaMagicEX" data-i18n="scReisaMagicEX">レイサ（マジカル）EXPS</option>
     </select>
 
   </div>
   <div>
-    角度(°)：
+    <span data-i18n="angle">角度(°)：</span>
     <input type="number" id="angleInput" min="1" max="360" value="360">
   </div>
 
 </div>
 
       <div class="counts" id="countsDisplay">
-        <span id="countsText">赤点：0/4　青点：0/4</span>
-        <input type="text" id="memoInput" maxlength="50" placeholder="メモ（50字）">
+        <span id="countsText">青点：0/4　赤点：0/4</span>
+        <input type="text" id="memoInput" maxlength="50" data-i18n-placeholder="memoPlaceholder" placeholder="メモ（50字）">
         <span id="memoCount">0/50</span>
       </div>
 
@@ -731,18 +726,18 @@ body.dark-mode .icon-tab.active {
     </div>
 
     <div class="right-panel">
-      <div class="table-title">青点座標</div>
+      <div class="table-title" data-i18n="blueCoord">青点座標</div>
       <table>
         <thead>
-          <tr><th>#</th><th>生徒</th><th>x</th><th>y</th><th>基準</th></tr>
+          <tr><th>#</th><th data-i18n="student">生徒</th><th>x</th><th>y</th><th data-i18n="base">基準</th></tr>
         </thead>
         <tbody id="blueTableBody"></tbody>
       </table>
 
-      <div class="table-title">赤点座標</div>
+      <div class="table-title" data-i18n="redCoord">赤点座標</div>
       <table>
         <thead>
-          <tr><th>#</th><th>生徒</th><th>x</th><th>y</th><th>基準</th></tr>
+          <tr><th>#</th><th data-i18n="student">生徒</th><th>x</th><th>y</th><th data-i18n="base">基準</th></tr>
         </thead>
         <tbody id="redTableBody"></tbody>
       </table>
@@ -760,12 +755,12 @@ body.dark-mode .icon-tab.active {
   <input type="text" class="preset-name" value="プリセット1" style="width:100%; margin-bottom:6px;">
 
   <div class="preset-actions" style="display:flex; align-items:center; gap:4px; margin-bottom:3px;">
-    <button class="preset-save">現在の配置を保存</button>
-    <button class="preset-apply">適用</button>
-    <button class="preset-delete">削除</button>
+    <button class="preset-save" data-i18n="presetSave">現在の配置を保存</button>
+    <button class="preset-apply" data-i18n="presetApply">適用</button>
+    <button class="preset-delete" data-i18n="presetDelete">削除</button>
 
     <details style="margin-left:auto;">
-      <summary style="cursor:pointer;">座標内容</summary>
+      <summary style="cursor:pointer;" data-i18n="coordContent">座標内容</summary>
       <pre class="preset-data" style="background:#fafafa; padding:6px; border:1px solid #ddd; border-radius:4px;"></pre>
     </details>
   </div>
@@ -775,12 +770,12 @@ body.dark-mode .icon-tab.active {
   <input type="text" class="preset-name" value="プリセット2" style="width:100%; margin-bottom:6px;">
 
   <div class="preset-actions" style="display:flex; align-items:center; gap:4px; margin-bottom:3px;">
-    <button class="preset-save">現在の配置を保存</button>
-    <button class="preset-apply">適用</button>
-    <button class="preset-delete">削除</button>
+    <button class="preset-save" data-i18n="presetSave">現在の配置を保存</button>
+    <button class="preset-apply" data-i18n="presetApply">適用</button>
+    <button class="preset-delete" data-i18n="presetDelete">削除</button>
 
     <details style="margin-left:auto;">
-      <summary style="cursor:pointer;">座標内容</summary>
+      <summary style="cursor:pointer;" data-i18n="coordContent">座標内容</summary>
       <pre class="preset-data" style="background:#fafafa; padding:6px; border:1px solid #ddd; border-radius:4px;"></pre>
     </details>
   </div>
@@ -790,12 +785,12 @@ body.dark-mode .icon-tab.active {
   <input type="text" class="preset-name" value="プリセット3" style="width:100%; margin-bottom:6px;">
 
   <div class="preset-actions" style="display:flex; align-items:center; gap:4px; margin-bottom:3px;">
-    <button class="preset-save">現在の配置を保存</button>
-    <button class="preset-apply">適用</button>
-    <button class="preset-delete">削除</button>
+    <button class="preset-save" data-i18n="presetSave">現在の配置を保存</button>
+    <button class="preset-apply" data-i18n="presetApply">適用</button>
+    <button class="preset-delete" data-i18n="presetDelete">削除</button>
 
     <details style="margin-left:auto;">
-      <summary style="cursor:pointer;">座標内容</summary>
+      <summary style="cursor:pointer;" data-i18n="coordContent">座標内容</summary>
       <pre class="preset-data" style="background:#fafafa; padding:6px; border:1px solid #ddd; border-radius:4px;"></pre>
     </details>
   </div>
@@ -805,12 +800,12 @@ body.dark-mode .icon-tab.active {
   <input type="text" class="preset-name" value="プリセット4" style="width:100%; margin-bottom:6px;">
 
   <div class="preset-actions" style="display:flex; align-items:center; gap:4px; margin-bottom:3px;">
-    <button class="preset-save">現在の配置を保存</button>
-    <button class="preset-apply">適用</button>
-    <button class="preset-delete">削除</button>
+    <button class="preset-save" data-i18n="presetSave">現在の配置を保存</button>
+    <button class="preset-apply" data-i18n="presetApply">適用</button>
+    <button class="preset-delete" data-i18n="presetDelete">削除</button>
 
     <details style="margin-left:auto;">
-      <summary style="cursor:pointer;">座標内容</summary>
+      <summary style="cursor:pointer;" data-i18n="coordContent">座標内容</summary>
       <pre class="preset-data" style="background:#fafafa; padding:6px; border:1px solid #ddd; border-radius:4px;"></pre>
     </details>
   </div>
@@ -820,12 +815,12 @@ body.dark-mode .icon-tab.active {
   <input type="text" class="preset-name" value="プリセット5" style="width:100%; margin-bottom:6px;">
 
   <div class="preset-actions" style="display:flex; align-items:center; gap:4px; margin-bottom:3px;">
-    <button class="preset-save">現在の配置を保存</button>
-    <button class="preset-apply">適用</button>
-    <button class="preset-delete">削除</button>
+    <button class="preset-save" data-i18n="presetSave">現在の配置を保存</button>
+    <button class="preset-apply" data-i18n="presetApply">適用</button>
+    <button class="preset-delete" data-i18n="presetDelete">削除</button>
 
     <details style="margin-left:auto;">
-      <summary style="cursor:pointer;">座標内容</summary>
+      <summary style="cursor:pointer;" data-i18n="coordContent">座標内容</summary>
       <pre class="preset-data" style="background:#fafafa; padding:6px; border:1px solid #ddd; border-radius:4px;"></pre>
     </details>
   </div>
@@ -835,12 +830,12 @@ body.dark-mode .icon-tab.active {
   <input type="text" class="preset-name" value="プリセット6" style="width:100%; margin-bottom:6px;">
 
   <div class="preset-actions" style="display:flex; align-items:center; gap:4px; margin-bottom:3px;">
-    <button class="preset-save">現在の配置を保存</button>
-    <button class="preset-apply">適用</button>
-    <button class="preset-delete">削除</button>
+    <button class="preset-save" data-i18n="presetSave">現在の配置を保存</button>
+    <button class="preset-apply" data-i18n="presetApply">適用</button>
+    <button class="preset-delete" data-i18n="presetDelete">削除</button>
 
     <details style="margin-left:auto;">
-      <summary style="cursor:pointer;">座標内容</summary>
+      <summary style="cursor:pointer;" data-i18n="coordContent">座標内容</summary>
       <pre class="preset-data" style="background:#fafafa; padding:6px; border:1px solid #ddd; border-radius:4px;"></pre>
     </details>
   </div>
@@ -850,12 +845,12 @@ body.dark-mode .icon-tab.active {
   <input type="text" class="preset-name" value="プリセット7" style="width:100%; margin-bottom:6px;">
 
   <div class="preset-actions" style="display:flex; align-items:center; gap:4px; margin-bottom:3px;">
-    <button class="preset-save">現在の配置を保存</button>
-    <button class="preset-apply">適用</button>
-    <button class="preset-delete">削除</button>
+    <button class="preset-save" data-i18n="presetSave">現在の配置を保存</button>
+    <button class="preset-apply" data-i18n="presetApply">適用</button>
+    <button class="preset-delete" data-i18n="presetDelete">削除</button>
 
     <details style="margin-left:auto;">
-      <summary style="cursor:pointer;">座標内容</summary>
+      <summary style="cursor:pointer;" data-i18n="coordContent">座標内容</summary>
       <pre class="preset-data" style="background:#fafafa; padding:6px; border:1px solid #ddd; border-radius:4px;"></pre>
     </details>
   </div>
@@ -865,12 +860,12 @@ body.dark-mode .icon-tab.active {
   <input type="text" class="preset-name" value="プリセット8" style="width:100%; margin-bottom:6px;">
 
   <div class="preset-actions" style="display:flex; align-items:center; gap:4px; margin-bottom:3px;">
-    <button class="preset-save">現在の配置を保存</button>
-    <button class="preset-apply">適用</button>
-    <button class="preset-delete">削除</button>
+    <button class="preset-save" data-i18n="presetSave">現在の配置を保存</button>
+    <button class="preset-apply" data-i18n="presetApply">適用</button>
+    <button class="preset-delete" data-i18n="presetDelete">削除</button>
 
     <details style="margin-left:auto;">
-      <summary style="cursor:pointer;">座標内容</summary>
+      <summary style="cursor:pointer;" data-i18n="coordContent">座標内容</summary>
       <pre class="preset-data" style="background:#fafafa; padding:6px; border:1px solid #ddd; border-radius:4px;"></pre>
     </details>
   </div>
@@ -880,12 +875,12 @@ body.dark-mode .icon-tab.active {
   <input type="text" class="preset-name" value="プリセット9" style="width:100%; margin-bottom:6px;">
 
   <div class="preset-actions" style="display:flex; align-items:center; gap:4px; margin-bottom:3px;">
-    <button class="preset-save">現在の配置を保存</button>
-    <button class="preset-apply">適用</button>
-    <button class="preset-delete">削除</button>
+    <button class="preset-save" data-i18n="presetSave">現在の配置を保存</button>
+    <button class="preset-apply" data-i18n="presetApply">適用</button>
+    <button class="preset-delete" data-i18n="presetDelete">削除</button>
 
     <details style="margin-left:auto;">
-      <summary style="cursor:pointer;">座標内容</summary>
+      <summary style="cursor:pointer;" data-i18n="coordContent">座標内容</summary>
       <pre class="preset-data" style="background:#fafafa; padding:6px; border:1px solid #ddd; border-radius:4px;"></pre>
     </details>
   </div>
@@ -895,12 +890,12 @@ body.dark-mode .icon-tab.active {
   <input type="text" class="preset-name" value="プリセット10" style="width:100%; margin-bottom:6px;">
 
   <div class="preset-actions" style="display:flex; align-items:center; gap:4px; margin-bottom:3px;">
-    <button class="preset-save">現在の配置を保存</button>
-    <button class="preset-apply">適用</button>
-    <button class="preset-delete">削除</button>
+    <button class="preset-save" data-i18n="presetSave">現在の配置を保存</button>
+    <button class="preset-apply" data-i18n="presetApply">適用</button>
+    <button class="preset-delete" data-i18n="presetDelete">削除</button>
 
     <details style="margin-left:auto;">
-      <summary style="cursor:pointer;">座標内容</summary>
+      <summary style="cursor:pointer;" data-i18n="coordContent">座標内容</summary>
       <pre class="preset-data" style="background:#fafafa; padding:6px; border:1px solid #ddd; border-radius:4px;"></pre>
     </details>
   </div>
@@ -910,12 +905,12 @@ body.dark-mode .icon-tab.active {
   <input type="text" class="preset-name" value="プリセット11" style="width:100%; margin-bottom:6px;">
 
   <div class="preset-actions" style="display:flex; align-items:center; gap:4px; margin-bottom:3px;">
-    <button class="preset-save">現在の配置を保存</button>
-    <button class="preset-apply">適用</button>
-    <button class="preset-delete">削除</button>
+    <button class="preset-save" data-i18n="presetSave">現在の配置を保存</button>
+    <button class="preset-apply" data-i18n="presetApply">適用</button>
+    <button class="preset-delete" data-i18n="presetDelete">削除</button>
 
     <details style="margin-left:auto;">
-      <summary style="cursor:pointer;">座標内容</summary>
+      <summary style="cursor:pointer;" data-i18n="coordContent">座標内容</summary>
       <pre class="preset-data" style="background:#fafafa; padding:6px; border:1px solid #ddd; border-radius:4px;"></pre>
     </details>
   </div>
@@ -925,12 +920,12 @@ body.dark-mode .icon-tab.active {
   <input type="text" class="preset-name" value="プリセット12" style="width:100%; margin-bottom:6px;">
 
   <div class="preset-actions" style="display:flex; align-items:center; gap:4px; margin-bottom:3px;">
-    <button class="preset-save">現在の配置を保存</button>
-    <button class="preset-apply">適用</button>
-    <button class="preset-delete">削除</button>
+    <button class="preset-save" data-i18n="presetSave">現在の配置を保存</button>
+    <button class="preset-apply" data-i18n="presetApply">適用</button>
+    <button class="preset-delete" data-i18n="presetDelete">削除</button>
 
     <details style="margin-left:auto;">
-      <summary style="cursor:pointer;">座標内容</summary>
+      <summary style="cursor:pointer;" data-i18n="coordContent">座標内容</summary>
       <pre class="preset-data" style="background:#fafafa; padding:6px; border:1px solid #ddd; border-radius:4px;"></pre>
     </details>
   </div>
@@ -938,71 +933,10 @@ body.dark-mode .icon-tab.active {
         
       <div style="margin-bottom: 6px;">
         <details>
-          <summary style="cursor: pointer; font-size: 13px; font-weight: bold;">
+          <summary style="cursor: pointer; font-size: 13px; font-weight: bold;" data-i18n="usageTitle">
             このツールの使い方（クリックで開く）
           </summary>
-          <div style="padding: 8px 12px; background: #fafafa; border: 1px solid #ddd; border-radius: 4px; margin-top: 6px; font-size: 14px; line-height: 1.6;">
-            <p><strong>ホル式戦術対抗戦マップ　-シッテムの箱-</strong>は、マップ上に生徒を表す赤点・青点を配置し、位置関係・部隊重心・最短距離・スキル範囲などを視覚的に確認できる戦術対抗戦支援ツールです。</p>
-
-            <h4>■ 基本操作</h4>
-            <ul>
-              <li><strong>左クリック：</strong>点を追加します（赤/青は「色切り替え」ボタンで変更）</li>
-              <li><strong>ドラッグ：</strong>点を移動します</li>
-              <li><strong>右クリック：</strong>点を削除します</li>
-              <li><strong>ダブルクリック：</strong>点を基準点に設定します（座標表のラジオボタンでも可）</li>
-              <li><strong>召喚物を考慮：</strong>チェックを入れると各チーム最大5点まで配置できます（5点目は☆表示）</li>
-            </ul>
-
-            <h4>■ モード（表示切り替え）</h4>
-            <ul>
-              <li><strong>攻撃SP：</strong>SPアタッカーの攻撃ターゲットを強調します</li>
-              <li><strong>バフSP：</strong>SPバッファーのバフターゲットを強調します</li>
-              <li><strong>攻撃ST：</strong>基準点に選んだSTの攻撃ターゲットを強調します</li>
-              <li><strong>バフST：</strong>基準点に選んだSTのバフターゲットを強調します</li>
-              <li><strong>範囲確認：</strong>基準点を中心にスキル範囲を描画します。半径・角度を手動調整するか、キャラクターのショートカットプリセットから選択できます</li>
-            </ul>
-
-            <h4>■ 配置プリセット</h4>
-            <ul>
-              <li>右パネルの「現在の配置を保存」で現在の赤青両チームの配置をプリセットとして保存します</li>
-              <li>「適用」で保存した配置を呼び出し、「削除」で削除します</li>
-              <li>プリセットは1〜12番まで、タブで3枠ずつ切り替えて管理できます</li>
-              <li>キャラアイコンの割り当て情報もプリセットに含まれます</li>
-            </ul>
-
-            <h4>■ URL共有</h4>
-            <ul>
-              <li>「🔗 URLをコピー」ボタンで現在の配置をURLとしてコピーします</li>
-              <li>そのURLを開くと配置が自動で復元されます</li>
-              <li>キャラアイコンの割り当て情報もURLに含まれます</li>
-            </ul>
-
-            <h4>■ キャラアイコン表示</h4>
-            <ul>
-              <li>設定から「キャラアイコン表示」をONにすると使用できます</li>
-              <li><strong>Shift+点クリック：</strong>アイコン選択ウィンドウが開きます。キャラ名で絞り込み検索もできます</li>
-              <li>割り当てたアイコンは点から矢印が伸びた先に表示されます</li>
-              <li><strong>Shift+アイコンドラッグ：</strong>アイコンの表示位置を自由に移動できます</li>
-              <li>アイコンを持つ点をドラッグで移動すると、アイコン位置は自動配置に戻ります</li>
-            </ul>
-
-            <h4>■ 設定</h4>
-            <ul>
-              <li><strong>ダークモード：</strong>ON/OFFを切り替えます</li>
-              <li><strong>遮蔽物表示：</strong>マップ上の遮蔽物レイヤーの表示/非表示を切り替えます</li>
-              <li><strong>範囲確認プリセットの表示：</strong>範囲確認モードのキャラクタープリセット一覧に表示するキャラを選択できます</li>
-              <li><strong>キャラアイコン表示：</strong>アイコン機能のON/OFFを切り替えます</li>
-            </ul>
-
-            <p>不具合報告や新機能の実装希望はこちらまで↓</p>
-            <p>
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfYnSxyBftTE8hRrijhFfLnJLUf-vUuWeSvyoZkx_JFScHDNg/viewform?usp=dialog"
-                 target="_blank"
-                 style="color:#1e88e5; text-decoration: underline;">
-                シッテムの箱フィードバック
-              </a>
-            </p>
-          </div>
+          <div id="usageGuideContent" style="padding: 8px 12px; background: #fafafa; border: 1px solid #ddd; border-radius: 4px; margin-top: 6px; font-size: 14px; line-height: 1.6;"></div>
         </details>
       </div>
     </div>
@@ -1027,22 +961,29 @@ body.dark-mode .icon-tab.active {
     width:300px;
     font-size:14px;
   " id="settingsPanel">
-    <h3 style="margin-top:0;">設定</h3>
+    <h3 style="margin-top:0;" data-i18n="settings">設定</h3>
 
     <div style="margin-bottom:8px;">
-      <div><strong>ダークモード</strong></div>
+      <div><strong data-i18n="langLabel">言語 / Language / 언어</strong></div>
+      <label><input type="radio" name="lang" value="ja" checked> 日本語</label>
+      <label style="margin-left:8px;"><input type="radio" name="lang" value="en"> English</label>
+      <label style="margin-left:8px;"><input type="radio" name="lang" value="ko"> 한국어</label>
+    </div>
+
+    <div style="margin-bottom:8px;">
+      <div><strong data-i18n="darkMode">ダークモード</strong></div>
       <label><input type="radio" name="darkMode" value="off" checked> OFF</label><br>
       <label><input type="radio" name="darkMode" value="on"> ON</label>
     </div>
 
     <div style="margin-bottom:8px;">
-      <div><strong>遮蔽物表示</strong></div>
-      <label><input type="radio" name="obstacle" value="on" checked> 表示</label><br>
-      <label><input type="radio" name="obstacle" value="off"> 非表示</label>
+      <div><strong data-i18n="obstacleLabel">遮蔽物表示</strong></div>
+      <label><input type="radio" name="obstacle" value="on" checked> <span data-i18n="show">表示</span></label><br>
+      <label><input type="radio" name="obstacle" value="off"> <span data-i18n="hide">非表示</span></label>
     </div>
 
     <div style="margin-bottom:8px;">
-  <div><strong>範囲確認プリセットの表示</strong></div>
+  <div><strong data-i18n="rangePresetLabel">範囲確認プリセットの表示</strong></div>
 
   <div id="presetFilterList" style="
     max-height:150px;
@@ -1056,12 +997,12 @@ body.dark-mode .icon-tab.active {
 </div>
     
     <div style="margin-bottom:8px;">
-      <div><strong>キャラアイコン表示</strong></div>
+      <div><strong data-i18n="iconModeLabel">キャラアイコン表示</strong></div>
       <label><input type="radio" name="iconMode" value="off" checked> OFF</label><br>
-      <label><input type="radio" name="iconMode" value="on"> ON（Shift+クリックで割り当て）</label>
+      <label><input type="radio" name="iconMode" value="on"> ON（<span data-i18n="iconModeHint">Shift+クリックで割り当て</span>）</label>
     </div>
 
-    <button id="btnSettingsClose">閉じる</button>
+    <button id="btnSettingsClose" data-i18n="close">閉じる</button>
   </div>
 </div>
 
@@ -1073,11 +1014,11 @@ body.dark-mode .icon-tab.active {
       <button id="iconModalClose">✕</button>
     </div>
     <div id="iconTabs">
-      <button class="icon-tab active" data-tab="default">デフォルト</button>
-      <button class="icon-tab" data-tab="recent">最近使った</button>
-      <button class="icon-tab" data-tab="favorite">お気に入り</button>
+      <button class="icon-tab active" data-tab="default" data-i18n="iconTabDefault">デフォルト</button>
+      <button class="icon-tab" data-tab="recent" data-i18n="iconTabRecent">最近使った</button>
+      <button class="icon-tab" data-tab="favorite" data-i18n="iconTabFavorite">お気に入り</button>
     </div>
-    <input type="text" id="iconSearchInput" placeholder="ファイル名で絞り込み…">
+    <input type="text" id="iconSearchInput" data-i18n-placeholder="iconSearch" placeholder="ファイル名で絞り込み…">
     <div id="iconGrid">
       <div style="color:#888; font-size:12px; padding:8px;">読み込み中…</div>
     </div>
@@ -2424,8 +2365,9 @@ function applySubFunction() {
 }
 
 function updateCounts() {
+  const t = LANGS[currentLang] || LANGS.ja;
   document.getElementById("countsText").textContent =
-    `青点：${bluePoints.length}/${MAX_POINTS}　赤点：${redPoints.length}/${MAX_POINTS}`;
+    t.countsFmt(bluePoints.length, redPoints.length, MAX_POINTS);
 }
   
 /* =========================
@@ -2771,9 +2713,9 @@ let iconTargetPoint = null; // 選択中の点
 
 function openIconModal(point) {
   iconTargetPoint = point;
-  const label = point.color === "red" ? "赤" : "青";
+  const t = LANGS[currentLang] || LANGS.ja;
   document.getElementById("iconModalTitle").textContent =
-    `キャラを選択（${label}${point.id}番）`;
+    t.iconSelectTitle(point.color, point.id);
 
   document.getElementById("iconSearchInput").value = "";
 
@@ -2795,11 +2737,13 @@ function renderIconGrid(filter) {
   const grid = document.getElementById("iconGrid");
   grid.innerHTML = "";
 
+  const t = LANGS[currentLang] || LANGS.ja;
+
   // 「割り当て解除」セル（デフォルトタブのみ表示）
   if (currentIconTab === "default") {
     const noneCell = document.createElement("div");
     noneCell.className = "icon-cell icon-none";
-    noneCell.textContent = "なし";
+    noneCell.textContent = t.iconNone;
     noneCell.addEventListener("click", () => {
       if (iconTargetPoint) {
         delete iconAssignments[`${iconTargetPoint.color}_${iconTargetPoint.id}`];
@@ -2831,9 +2775,9 @@ function renderIconGrid(filter) {
   if (entries.length === 0) {
     const msg = document.createElement("div");
     msg.style.cssText = "color:#888; font-size:12px; padding:8px; grid-column:1/-1;";
-    msg.textContent = currentIconTab === "recent" ? "まだ使ったアイコンがありません"
-                    : currentIconTab === "favorite" ? "お気に入りが登録されていません"
-                    : "該当なし";
+    msg.textContent = currentIconTab === "recent"   ? t.iconNoRecent
+                    : currentIconTab === "favorite" ? t.iconNoFavorite
+                    : t.iconNoResult;
     grid.appendChild(msg);
     return;
   }
@@ -3434,7 +3378,7 @@ function loadFromUrlHash() {
     redraw();
 
     setTimeout(() => {
-      showUrlToast("📍 URLから配置を復元しました");
+      showUrlToast((LANGS[currentLang]||LANGS.ja).urlRestored);
     }, 500);
 
   } catch (e) {
@@ -3480,7 +3424,7 @@ document.getElementById("btnCopyUrl").addEventListener("click", () => {
   // クリップボードにコピー
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(url).then(() => {
-      showUrlToast("✅ URLをクリップボードにコピーしました");
+      showUrlToast((LANGS[currentLang]||LANGS.ja).urlCopied);
     }).catch(() => {
       // フォールバック
       fallbackCopyUrl(url);
@@ -3498,7 +3442,7 @@ function fallbackCopyUrl(url) {
   ta.select();
   try {
     document.execCommand("copy");
-    showUrlToast("✅ URLをクリップボードにコピーしました");
+    showUrlToast((LANGS[currentLang]||LANGS.ja).urlCopied);
   } catch {
     showUrlToast("⚠️ コピーに失敗しました。手動でURLをコピーしてください");
   }
@@ -3506,6 +3450,423 @@ function fallbackCopyUrl(url) {
 }
 
 // ページロード時にハッシュがあれば配置を復元
+/* =========================
+   多言語対応（i18n）
+   ========================= */
+
+const LANGS = {
+  ja: {
+    title:            "ホル式戦術対抗戦マップ　-シッテムの箱-",
+    blue:             "青",
+    red:              "赤",
+    reset:            "リセット",
+    saveImage:        "画像保存",
+    copyUrl:          "URLをコピー",
+    modeAtkSP:        "攻撃SP",
+    modeBufSP:        "バフSP",
+    modeAtkST:        "攻撃ST",
+    modeBufST:        "バフST",
+    modeRange:        "範囲確認",
+    summon:           "召喚物を考慮",
+    settings:         "設定",
+    radius:           "半径(cm)：",
+    angle:            "角度(°)：",
+    memoPlaceholder:  "メモ（50字）",
+    blueCoord:        "青点座標",
+    redCoord:         "赤点座標",
+    student:          "生徒",
+    base:             "基準",
+    presetSave:       "現在の配置を保存",
+    presetApply:      "適用",
+    presetDelete:     "削除",
+    coordContent:     "座標内容",
+    langLabel:        "言語 / Language / 언어",
+    darkMode:         "ダークモード",
+    obstacleLabel:    "遮蔽物表示",
+    show:             "表示",
+    hide:             "非表示",
+    rangePresetLabel: "範囲確認プリセットの表示",
+    iconModeLabel:    "キャラアイコン表示",
+    iconModeHint:     "Shift+クリックで割り当て",
+    close:            "閉じる",
+    iconTabDefault:   "デフォルト",
+    iconTabRecent:    "最近使った",
+    iconTabFavorite:  "お気に入り",
+    iconSearch:       "ファイル名で絞り込み…",
+    usageTitle:       "このツールの使い方（クリックで開く）",
+    countsFmt:        (b, r, m) => `青点：${b}/${m}　赤点：${r}/${m}`,
+    urlCopied:        "✅ URLをクリップボードにコピーしました",
+    urlRestored:      "📍 URLから配置を復元しました",
+    iconSelectTitle:  (col, id) => `キャラを選択（${col === "blue" ? "青" : "赤"}${id}番）`,
+    iconNone:         "なし",
+    iconNoRecent:     "まだ使ったアイコンがありません",
+    iconNoFavorite:   "お気に入りが登録されていません",
+    iconNoResult:     "該当なし",
+    usageHTML: `
+      <p><strong>ホル式戦術対抗戦マップ　-シッテムの箱-</strong>は、マップ上に生徒を表す赤点・青点を配置し、位置関係・部隊重心・最短距離・スキル範囲などを視覚的に確認できる戦術対抗戦支援ツールです。</p>
+      <h4>■ 基本操作</h4>
+      <ul>
+        <li><strong>左クリック：</strong>点を追加します（赤/青は「色切り替え」ボタンで変更）</li>
+        <li><strong>ドラッグ：</strong>点を移動します</li>
+        <li><strong>右クリック：</strong>点を削除します</li>
+        <li><strong>ダブルクリック：</strong>点を基準点に設定します（座標表のラジオボタンでも可）</li>
+        <li><strong>召喚物を考慮：</strong>チェックを入れると各チーム最大5点まで配置できます（5点目は☆表示）</li>
+      </ul>
+      <h4>■ モード（表示切り替え）</h4>
+      <ul>
+        <li><strong>攻撃SP：</strong>SPアタッカーの攻撃ターゲットを強調します</li>
+        <li><strong>バフSP：</strong>SPバッファーのバフターゲットを強調します</li>
+        <li><strong>攻撃ST：</strong>基準点に選んだSTの攻撃ターゲットを強調します</li>
+        <li><strong>バフST：</strong>基準点に選んだSTのバフターゲットを強調します</li>
+        <li><strong>範囲確認：</strong>基準点を中心にスキル範囲を描画します。半径・角度を手動調整するか、キャラクターのショートカットプリセットから選択できます</li>
+      </ul>
+      <h4>■ 配置プリセット</h4>
+      <ul>
+        <li>右パネルの「現在の配置を保存」で現在の赤青両チームの配置をプリセットとして保存します</li>
+        <li>「適用」で保存した配置を呼び出し、「削除」で削除します</li>
+        <li>プリセットは1〜12番まで、タブで3枠ずつ切り替えて管理できます</li>
+        <li>キャラアイコンの割り当て情報もプリセットに含まれます</li>
+      </ul>
+      <h4>■ URL共有</h4>
+      <ul>
+        <li>「🔗 URLをコピー」ボタンで現在の配置をURLとしてコピーします</li>
+        <li>そのURLを開くと配置が自動で復元されます</li>
+        <li>キャラアイコンの割り当て情報もURLに含まれます</li>
+      </ul>
+      <h4>■ キャラアイコン表示</h4>
+      <ul>
+        <li>設定から「キャラアイコン表示」をONにすると使用できます</li>
+        <li><strong>Shift+点クリック：</strong>アイコン選択ウィンドウが開きます</li>
+        <li><strong>Shift+アイコンドラッグ：</strong>アイコンの表示位置を自由に移動できます</li>
+        <li>アイコンを持つ点をドラッグで移動すると、アイコン位置は自動配置に戻ります</li>
+      </ul>
+      <h4>■ 設定</h4>
+      <ul>
+        <li><strong>ダークモード：</strong>ON/OFFを切り替えます</li>
+        <li><strong>遮蔽物表示：</strong>マップ上の遮蔽物レイヤーの表示/非表示を切り替えます</li>
+        <li><strong>範囲確認プリセットの表示：</strong>範囲確認モードのキャラクタープリセット一覧に表示するキャラを選択できます</li>
+        <li><strong>キャラアイコン表示：</strong>アイコン機能のON/OFFを切り替えます</li>
+      </ul>
+      <p>不具合報告や新機能の実装希望はこちらまで↓</p>
+      <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSfYnSxyBftTE8hRrijhFfLnJLUf-vUuWeSvyoZkx_JFScHDNg/viewform?usp=dialog" target="_blank" style="color:#1e88e5;">シッテムの箱フィードバック</a></p>`,
+    scManual: "手動",
+    scAtsukoEX: "アツコEX", scAtsukoNS: "アツコNS",
+    scAliceEX: "アリスEX", scAliceRinsenEX: "アリス（臨戦）EX",
+    scAruNewyearEX: "アル（正月）EX",
+    scIoriEX: "イオリEX", scIrihaEXNS: "イロハEXNS",
+    scKanoeNS: "カノエNS", scKirinoNS: "キリノNS※単体攻撃",
+    scKotoriCheerEX: "コトリ（応援団）EX", scKonokaEX: "コノカEX",
+    scKoharuMizugiEX: "コハル（水着）EX", scKoyukiNS: "コユキNS",
+    scSakiEX: "サキEX", scSayaCasualEX: "サヤ（私服）EX",
+    scShirokoRidingNS: "シロコ（ライディング）NS", scShunEXAA: "シュンEXAA",
+    scJunkoEX: "ジュンコEX", scSumireEX: "スミレEX",
+    scTsubakiEX: "ツバキEX", scTsurugiEXAA: "ツルギEXAA",
+    scTokiEX: "トキEX", scNagisaEX: "ナギサEX", scNonomiEX: "ノノミEX",
+    scHasumiMizugiEX: "ハスミ（水着）EX", scHanakoMizugiEX: "ハナコ（水着）EX",
+    scHarunaNewyearEX: "ハルナ（正月）EX",
+    scHinaDressEX: "ヒナ（ドレス）EX", scHinaMizugiEX: "ヒナ（水着）EX",
+    scHinataEX: "ヒナタEX", scHinataMizugiNS: "ヒナタ（水着）NS",
+    scHibikiEX: "ヒビキEX", scHibikiNS: "ヒビキNS※対象を選択",
+    scHihumiEX: "ヒフミEX", scHiyoriMizugiEX: "ヒヨリ（水着）EX",
+    scHoshinoRinsenEX: "ホシノ（臨戦）EX", scHoshinoRinsenSS: "ホシノ（臨戦）SS",
+    scMarinaEX: "マリナEX", scMinoriEX: "ミノリEX", scMinoriNS: "ミノリNS",
+    scMutsukiNewyearEX: "ムツキ（正月）EX", scMutsukiNewyearNS: "ムツキ（正月）NS",
+    scMeguAA: "メグAA", scMeguEX: "メグEX", scYakumoEX: "ヤクモEX",
+    scYuzuEX: "ユズEX", scYuzuNS: "ユズNS※対象を選択",
+    scReisaEX: "レイサEX", scReisaMagicEX: "レイサ（マジカル）EXPS",
+  },
+  en: {
+    title:            "The FOR Map for pvp -Shittim no hako-",
+    blue:             "Blue",
+    red:              "Red",
+    reset:            "Reset",
+    saveImage:        "Save Image",
+    copyUrl:          "Copy URL",
+    modeAtkSP:        "ATK SP",
+    modeBufSP:        "BUFF SP",
+    modeAtkST:        "ATK ST",
+    modeBufST:        "BUFF ST",
+    modeRange:        "Range Check",
+    summon:           "Include Summons",
+    settings:         "Settings",
+    radius:           "Radius(cm)：",
+    angle:            "Angle(°)：",
+    memoPlaceholder:  "Memo (50 chars)",
+    blueCoord:        "Blue Coordinates",
+    redCoord:         "Red Coordinates",
+    student:          "Student",
+    base:             "Base",
+    presetSave:       "Save Layout",
+    presetApply:      "Apply",
+    presetDelete:     "Delete",
+    coordContent:     "Coordinates",
+    langLabel:        "Language",
+    darkMode:         "Dark Mode",
+    obstacleLabel:    "Show Obstacles",
+    show:             "Show",
+    hide:             "Hide",
+    rangePresetLabel: "Range Preset Display",
+    iconModeLabel:    "Character Icons",
+    iconModeHint:     "Shift+click to assign",
+    close:            "Close",
+    iconTabDefault:   "Default",
+    iconTabRecent:    "Recent",
+    iconTabFavorite:  "Favorites",
+    iconSearch:       "Filter by filename…",
+    usageTitle:       "How to use this tool (click to open)",
+    countsFmt:        (b, r, m) => `Blue：${b}/${m}　Red：${r}/${m}`,
+    urlCopied:        "✅ URL copied to clipboard",
+    urlRestored:      "📍 Layout restored from URL",
+    iconSelectTitle:  (col, id) => `Select Student (${col === "blue" ? "Blue" : "Red"} #${id})`,
+    iconNone:         "None",
+    iconNoRecent:     "No icons used yet",
+    iconNoFavorite:   "No favorites registered",
+    iconNoResult:     "No results",
+    usageHTML: `
+      <p><strong>The FOR Map for pvp -Shittim no hako-</strong> is a tactical PvP support tool. Place blue and red dots representing students on the map to visually confirm positions, team centroids, distances, and skill ranges.</p>
+      <h4>■ Basic Controls</h4>
+      <ul>
+        <li><strong>Left click：</strong>Place a dot (switch Blue/Red with the rocker button)</li>
+        <li><strong>Drag：</strong>Move a dot</li>
+        <li><strong>Right click：</strong>Delete a dot</li>
+        <li><strong>Double click：</strong>Set a dot as the base point (also available via radio button in the coordinate table)</li>
+        <li><strong>Include Summons：</strong>When checked, up to 5 dots per team can be placed (5th dot shown as ☆)</li>
+      </ul>
+      <h4>■ Modes</h4>
+      <ul>
+        <li><strong>ATK SP：</strong>Highlights attack targets of the SP attacker</li>
+        <li><strong>BUFF SP：</strong>Highlights buff targets of the SP buffer</li>
+        <li><strong>ATK ST：</strong>Highlights attack targets of the selected base ST</li>
+        <li><strong>BUFF ST：</strong>Highlights buff targets of the selected base ST</li>
+        <li><strong>Range Check：</strong>Draws skill range centered on the base point. Adjust radius/angle manually or select a character shortcut preset</li>
+      </ul>
+      <h4>■ Layout Presets</h4>
+      <ul>
+        <li>Click "Save Layout" to save the current placement as a preset</li>
+        <li>"Apply" loads the saved layout; "Delete" removes it</li>
+        <li>12 preset slots available, managed in groups of 3 via tabs</li>
+        <li>Character icon assignments are included in presets</li>
+      </ul>
+      <h4>■ URL Sharing</h4>
+      <ul>
+        <li>Click "🔗 Copy URL" to copy the current layout as a URL</li>
+        <li>Opening that URL automatically restores the layout</li>
+        <li>Character icon assignments are included in the URL</li>
+      </ul>
+      <h4>■ Character Icons</h4>
+      <ul>
+        <li>Enable "Character Icons" in Settings to use this feature</li>
+        <li><strong>Shift+click a dot：</strong>Opens the icon selection window</li>
+        <li><strong>Shift+drag an icon：</strong>Freely reposition the icon</li>
+        <li>Moving a dot resets its icon to the automatic position</li>
+      </ul>
+      <h4>■ Settings</h4>
+      <ul>
+        <li><strong>Dark Mode：</strong>Toggle ON/OFF</li>
+        <li><strong>Show Obstacles：</strong>Toggle the obstacle layer on the map</li>
+        <li><strong>Range Preset Display：</strong>Choose which characters appear in the range check preset list</li>
+        <li><strong>Character Icons：</strong>Toggle the icon feature ON/OFF</li>
+      </ul>
+      <p>Bug reports and feature requests: <a href="https://docs.google.com/forms/d/e/1FAIpQLSfYnSxyBftTE8hRrijhFfLnJLUf-vUuWeSvyoZkx_JFScHDNg/viewform?usp=dialog" target="_blank" style="color:#1e88e5;">Shittim no hako Feedback</a></p>`,
+    scManual: "Manual",
+    scAtsukoEX: "AtsukoEX", scAtsukoNS: "AtsukoNS",
+    scAliceEX: "AliceEX", scAliceRinsenEX: "Alice(Tactical)EX",
+    scAruNewyearEX: "Aru(New Year)EX",
+    scIoriEX: "IoriEX", scIrihaEXNS: "IrohaEXNS",
+    scKanoeNS: "KanoeNS", scKirinoNS: "KirinoNS※Single target",
+    scKotoriCheerEX: "Kotori(Cheer)EX", scKonokaEX: "KonokaEX",
+    scKoharuMizugiEX: "Koharu(Swimsuit)EX", scKoyukiNS: "KoyukiNS",
+    scSakiEX: "SakiEX", scSayaCasualEX: "Saya(Casual)EX",
+    scShirokoRidingNS: "Shiroko(Riding)NS", scShunEXAA: "ShunEXAA",
+    scJunkoEX: "JunkoEX", scSumireEX: "SumireEX",
+    scTsubakiEX: "TsubakiEX", scTsurugiEXAA: "TsurugiEXAA",
+    scTokiEX: "TokiEX", scNagisaEX: "NagisaEX", scNonomiEX: "NonomiEX",
+    scHasumiMizugiEX: "Hasumi(Swimsuit)EX", scHanakoMizugiEX: "Hanako(Swimsuit)EX",
+    scHarunaNewyearEX: "Haruna(New Year)EX",
+    scHinaDressEX: "Hina(Dress)EX", scHinaMizugiEX: "Hina(Swimsuit)EX",
+    scHinataEX: "HinataEX", scHinataMizugiNS: "Hinata(Swimsuit)NS",
+    scHibikiEX: "HibikiEX", scHibikiNS: "HibikiNS※Select target",
+    scHihumiEX: "HihumiEX", scHiyoriMizugiEX: "Hiyori(Swimsuit)EX",
+    scHoshinoRinsenEX: "Hoshino(Tactical)EX", scHoshinoRinsenSS: "Hoshino(Tactical)SS",
+    scMarinaEX: "MarinaEX", scMinoriEX: "MinoriEX", scMinoriNS: "MinoriNS",
+    scMutsukiNewyearEX: "Mutsuki(New Year)EX", scMutsukiNewyearNS: "Mutsuki(New Year)NS",
+    scMeguAA: "MeguAA", scMeguEX: "MeguEX", scYakumoEX: "YakumoEX",
+    scYuzuEX: "YuzuEX", scYuzuNS: "YuzuNS※Select target",
+    scReisaEX: "ReisaEX", scReisaMagicEX: "Reisa(Magical)EXPS",
+  },
+  ko: {
+    title:            "FOR식 전술 대항전 맵 - 싯딤의 상자 -",
+    blue:             "청팀",
+    red:              "적팀",
+    reset:            "초기화",
+    saveImage:        "이미지 저장",
+    copyUrl:          "URL 복사",
+    modeAtkSP:        "공격 SP",
+    modeBufSP:        "버프 SP",
+    modeAtkST:        "공격 ST",
+    modeBufST:        "버프 ST",
+    modeRange:        "범위 확인",
+    summon:           "소환물 포함",
+    settings:         "설정",
+    radius:           "반경(cm)：",
+    angle:            "각도(°)：",
+    memoPlaceholder:  "메모 (50자)",
+    blueCoord:        "청팀 좌표",
+    redCoord:         "적팀 좌표",
+    student:          "학생",
+    base:             "기준",
+    presetSave:       "현재 배치 저장",
+    presetApply:      "적용",
+    presetDelete:     "삭제",
+    coordContent:     "좌표 내용",
+    langLabel:        "언어 / Language",
+    darkMode:         "다크 모드",
+    obstacleLabel:    "차폐물 표시",
+    show:             "표시",
+    hide:             "숨기기",
+    rangePresetLabel: "범위 확인 프리셋 표시",
+    iconModeLabel:    "캐릭터 아이콘 표시",
+    iconModeHint:     "Shift+클릭으로 지정",
+    close:            "닫기",
+    iconTabDefault:   "기본",
+    iconTabRecent:    "최근 사용",
+    iconTabFavorite:  "즐겨찾기",
+    iconSearch:       "파일명으로 검색…",
+    usageTitle:       "사용 방법 (클릭하여 열기)",
+    countsFmt:        (b, r, m) => `청팀：${b}/${m}　적팀：${r}/${m}`,
+    urlCopied:        "✅ URL이 클립보드에 복사되었습니다",
+    urlRestored:      "📍 URL에서 배치를 복원했습니다",
+    iconSelectTitle:  (col, id) => `학생 선택 (${col === "blue" ? "청팀" : "적팀"} ${id}번)`,
+    iconNone:         "없음",
+    iconNoRecent:     "아직 사용한 아이콘이 없습니다",
+    iconNoFavorite:   "즐겨찾기가 등록되지 않았습니다",
+    iconNoResult:     "해당 없음",
+    usageHTML: `
+      <p><strong>FOR식 전술 대항전 맵 - 싯딤의 상자 -</strong>는 맵 위에 학생을 나타내는 청팀·적팀 점을 배치하여, 위치 관계·부대 중심·최단 거리·스킬 범위 등을 시각적으로 확인할 수 있는 대항전 지원 툴입니다.</p>
+      <h4>■ 기본 조작</h4>
+      <ul>
+        <li><strong>좌클릭：</strong>점을 추가합니다（청/적 전환은 로커 버튼으로）</li>
+        <li><strong>드래그：</strong>점을 이동합니다</li>
+        <li><strong>우클릭：</strong>점을 삭제합니다</li>
+        <li><strong>더블클릭：</strong>점을 기준점으로 설정합니다（좌표 표의 라디오 버튼으로도 가능）</li>
+        <li><strong>소환물 포함：</strong>체크 시 각 팀 최대 5점까지 배치 가능합니다（5번째 점은 ☆ 표시）</li>
+      </ul>
+      <h4>■ 모드</h4>
+      <ul>
+        <li><strong>공격 SP：</strong>SP 어태커의 공격 대상을 강조합니다</li>
+        <li><strong>버프 SP：</strong>SP 버퍼의 버프 대상을 강조합니다</li>
+        <li><strong>공격 ST：</strong>선택한 기준 ST의 공격 대상을 강조합니다</li>
+        <li><strong>버프 ST：</strong>선택한 기준 ST의 버프 대상을 강조합니다</li>
+        <li><strong>범위 확인：</strong>기준점을 중심으로 스킬 범위를 그립니다. 반경·각도를 수동으로 조정하거나 캐릭터 단축 프리셋에서 선택할 수 있습니다</li>
+      </ul>
+      <h4>■ 배치 프리셋</h4>
+      <ul>
+        <li>우측 패널의 "현재 배치 저장"으로 현재 배치를 프리셋으로 저장합니다</li>
+        <li>"적용"으로 저장된 배치를 불러오고, "삭제"로 삭제합니다</li>
+        <li>프리셋은 1~12번까지, 탭으로 3칸씩 전환하여 관리합니다</li>
+        <li>캐릭터 아이콘 지정 정보도 프리셋에 포함됩니다</li>
+      </ul>
+      <h4>■ URL 공유</h4>
+      <ul>
+        <li>"🔗 URL 복사" 버튼으로 현재 배치를 URL로 복사합니다</li>
+        <li>해당 URL을 열면 배치가 자동으로 복원됩니다</li>
+        <li>캐릭터 아이콘 지정 정보도 URL에 포함됩니다</li>
+      </ul>
+      <h4>■ 캐릭터 아이콘 표시</h4>
+      <ul>
+        <li>설정에서 "캐릭터 아이콘 표시"를 ON으로 하면 사용할 수 있습니다</li>
+        <li><strong>Shift+점 클릭：</strong>아이콘 선택 창이 열립니다</li>
+        <li><strong>Shift+아이콘 드래그：</strong>아이콘 표시 위치를 자유롭게 이동할 수 있습니다</li>
+        <li>점을 드래그로 이동하면 아이콘 위치가 자동 배치로 돌아갑니다</li>
+      </ul>
+      <h4>■ 설정</h4>
+      <ul>
+        <li><strong>다크 모드：</strong>ON/OFF를 전환합니다</li>
+        <li><strong>차폐물 표시：</strong>맵 위의 차폐물 레이어 표시/숨기기를 전환합니다</li>
+        <li><strong>범위 확인 프리셋 표시：</strong>범위 확인 모드의 캐릭터 프리셋 목록에 표시할 캐릭터를 선택합니다</li>
+        <li><strong>캐릭터 아이콘 표시：</strong>아이콘 기능의 ON/OFF를 전환합니다</li>
+      </ul>
+      <p>버그 신고 및 기능 요청: <a href="https://docs.google.com/forms/d/e/1FAIpQLSfYnSxyBftTE8hRrijhFfLnJLUf-vUuWeSvyoZkx_JFScHDNg/viewform?usp=dialog" target="_blank" style="color:#1e88e5;">싯딤의 상자 피드백</a></p>`,
+    scManual: "수동",
+    scAtsukoEX: "아츠코EX", scAtsukoNS: "아츠코NS",
+    scAliceEX: "앨리스EX", scAliceRinsenEX: "앨리스(전투복)EX",
+    scAruNewyearEX: "아루(새해)EX",
+    scIoriEX: "이오리EX", scIrihaEXNS: "이로하EXNS",
+    scKanoeNS: "카노에NS", scKirinoNS: "키리노NS※단일 대상",
+    scKotoriCheerEX: "코토리(응원단)EX", scKonokaEX: "코노카EX",
+    scKoharuMizugiEX: "코하루(수영복)EX", scKoyukiNS: "코유키NS",
+    scSakiEX: "사키EX", scSayaCasualEX: "사야(사복)EX",
+    scShirokoRidingNS: "시로코(라이딩)NS", scShunEXAA: "슌EXAA",
+    scJunkoEX: "준코EX", scSumireEX: "스미레EX",
+    scTsubakiEX: "츠바키EX", scTsurugiEXAA: "츠루기EXAA",
+    scTokiEX: "토키EX", scNagisaEX: "나기사EX", scNonomiEX: "노노미EX",
+    scHasumiMizugiEX: "하스미(수영복)EX", scHanakoMizugiEX: "하나코(수영복)EX",
+    scHarunaNewyearEX: "하루나(새해)EX",
+    scHinaDressEX: "히나(드레스)EX", scHinaMizugiEX: "히나(수영복)EX",
+    scHinataEX: "히나타EX", scHinataMizugiNS: "히나타(수영복)NS",
+    scHibikiEX: "히비키EX", scHibikiNS: "히비키NS※대상 선택",
+    scHihumiEX: "히후미EX", scHiyoriMizugiEX: "히요리(수영복)EX",
+    scHoshinoRinsenEX: "호시노(전투복)EX", scHoshinoRinsenSS: "호시노(전투복)SS",
+    scMarinaEX: "마리나EX", scMinoriEX: "미노리EX", scMinoriNS: "미노리NS",
+    scMutsukiNewyearEX: "무츠키(새해)EX", scMutsukiNewyearNS: "무츠키(새해)NS",
+    scMeguAA: "메구AA", scMeguEX: "메구EX", scYakumoEX: "야쿠모EX",
+    scYuzuEX: "유즈EX", scYuzuNS: "유즈NS※대상 선택",
+    scReisaEX: "레이사EX", scReisaMagicEX: "레이사(마법소녀)EXPS",
+  },
+};
+
+let currentLang = localStorage.getItem("lang") || "ja";
+
+function applyLang(lang) {
+  currentLang = lang;
+  localStorage.setItem("lang", lang);
+  const t = LANGS[lang];
+  if (!t) return;
+
+  // data-i18n テキスト
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
+    if (typeof t[key] === "string") el.textContent = t[key];
+  });
+
+  // data-i18n-placeholder
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (typeof t[key] === "string") el.placeholder = t[key];
+  });
+
+  // select options（modeSelect）
+  document.querySelectorAll("#modeSelect option[data-i18n]").forEach(opt => {
+    const key = opt.dataset.i18n;
+    if (typeof t[key] === "string") opt.textContent = t[key];
+  });
+
+  // shortcutSelect options
+  document.querySelectorAll("#shortcutSelect option[data-i18n]").forEach(opt => {
+    const key = opt.dataset.i18n;
+    if (typeof t[key] === "string") opt.textContent = t[key];
+  });
+
+  // 使い方ガイド
+  const guideEl = document.getElementById("usageGuideContent");
+  if (guideEl && t.usageHTML) guideEl.innerHTML = t.usageHTML;
+
+  // ラジオボタンの言語選択に反映
+  const radio = document.querySelector(`input[name="lang"][value="${lang}"]`);
+  if (radio) radio.checked = true;
+
+  // カウント表示を更新
+  updateCounts();
+}
+
+// 言語ラジオボタンのイベント
+document.querySelectorAll("input[name='lang']").forEach(r =>
+  r.addEventListener("change", e => applyLang(e.target.value))
+);
+
+// 初期化
+applyLang(currentLang);
+
 window.addEventListener("load", loadFromUrlHash);
 
 document.querySelectorAll(".preset-save").forEach(btn => {
