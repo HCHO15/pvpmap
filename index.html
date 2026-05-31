@@ -1224,26 +1224,26 @@ const bgImages = {
 bgImages.s10.src = "S10 map.png";
 bgImages.s11.src = "S11 map.png";
 
+const bgObstacleImages = {
+  s10: new Image(),
+  s11: new Image(),
+};
+bgObstacleImages.s10.src = "S10 map 遮蔽.png";
+bgObstacleImages.s11.src = "S11 map 遮蔽.png";
+
 let currentMap = localStorage.getItem("mapSelect") || "s10";
 let bgLoaded = false;
 bgImages.s10.onload = () => { bgLoaded = true; redraw(); };
 bgImages.s11.onload = () => { if (currentMap === "s11") redraw(); };
 
-const bgImage2 = new Image();
-bgImage2.src = "S10 map 遮蔽.png";
+const bgImage2 = bgObstacleImages.s10; // 後方互換用
 let bg2Loaded = false;
-bgImage2.onload = () => { bg2Loaded = true; redraw(); };
+bgObstacleImages.s10.onload = () => { bg2Loaded = true; redraw(); };
+bgObstacleImages.s11.onload = () => { if (currentMap === "s11") redraw(); };
 
 function applyMapSelect(map) {
   currentMap = map;
   localStorage.setItem("mapSelect", map);
-
-  // S11のときは遮蔽セクションをグレーアウト
-  const obstacleSection = document.getElementById("obstacleSection");
-  if (obstacleSection) {
-    obstacleSection.style.opacity = map === "s11" ? "0.4" : "1";
-    obstacleSection.style.pointerEvents = map === "s11" ? "none" : "";
-  }
 
   // ラジオボタン反映
   const r = document.querySelector(`input[name='mapSelect'][value='${map}']`);
@@ -1513,9 +1513,12 @@ function clearCanvas() {
     drawBackgroundImage(activeBg, 1.0);
   }
 
-  // 遮蔽物（S10のみ）
-  if (currentMap === "s10" && isObstacleVisible && bg2Loaded) {
-    drawBackgroundImage(bgImage2, 0.9);
+  // 遮蔽物（S10・S11共通）
+  if (isObstacleVisible) {
+    const activeObstacle = bgObstacleImages[currentMap];
+    if (activeObstacle && activeObstacle.complete && activeObstacle.naturalWidth > 0) {
+      drawBackgroundImage(activeObstacle, 0.9);
+    }
   }
 }
 
