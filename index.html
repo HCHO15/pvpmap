@@ -1139,8 +1139,17 @@ const HIT_RADIUS = 12;
 
 const COLOR_RED = "#e53935";
 const COLOR_BLUE = "#1e88e5";
-const COLOR_RED_LIGHT = "rgba(229,57,53,0.55)";
-const COLOR_BLUE_LIGHT = "rgba(30,136,229,0.55)";
+const COLOR_RED_LIGHT_S10  = "rgba(229,57,53,0.55)";
+const COLOR_BLUE_LIGHT_S10 = "rgba(30,136,229,0.55)";
+const COLOR_RED_LIGHT_S11  = "rgba(255,80,80,0.90)";
+const COLOR_BLUE_LIGHT_S11 = "rgba(30,180,255,0.90)";
+
+function getColorRedLight()  { return currentMap === "s11" ? COLOR_RED_LIGHT_S11  : COLOR_RED_LIGHT_S10;  }
+function getColorBlueLight() { return currentMap === "s11" ? COLOR_BLUE_LIGHT_S11 : COLOR_BLUE_LIGHT_S10; }
+
+// 後方互換用（定数として参照している箇所向け）
+Object.defineProperty(window, "COLOR_RED_LIGHT",  { get: () => getColorRedLight()  });
+Object.defineProperty(window, "COLOR_BLUE_LIGHT", { get: () => getColorBlueLight() });
 
 let modeIndex = 0;
 let currentColor = "blue";
@@ -1569,7 +1578,7 @@ function drawHighlightCircle(point, color) {
 
   ctx.save();
   ctx.strokeStyle = color;
-  ctx.lineWidth = 3;
+  ctx.lineWidth = currentMap === "s11" ? 4 : 3;
   ctx.beginPath();
   ctx.arc(cx, cy, POINT_RADIUS + 5, 0, Math.PI * 2);
   ctx.stroke();
