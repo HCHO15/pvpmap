@@ -1240,7 +1240,7 @@ const bgObstacleImages = {
 bgObstacleImages.s10.src = "S10 map 遮蔽.png";
 bgObstacleImages.s11.src = "S11 map 遮蔽.png";
 
-let currentMap = localStorage.getItem("mapSelect") || "s10";
+let currentMap = localStorage.getItem("mapSelect") || "s11";
 let bgLoaded = false;
 bgImages.s10.onload = () => { bgLoaded = true; redraw(); };
 bgImages.s11.onload = () => { if (currentMap === "s11") redraw(); };
@@ -3002,13 +3002,11 @@ memoInput.addEventListener("input", () => {
   memoCount.textContent = `${memoInput.value.length}/50`;
 });
 (function restoreIconMode() {
-  const saved = localStorage.getItem("iconMode");
-  if (saved === "on") {
-    isIconModeOn = true;
-    const radio = document.querySelector("input[name='iconMode'][value='on']");
-    if (radio) radio.checked = true;
-    fetchIconFileList();
-  }
+  const saved = localStorage.getItem("iconMode") || "on";
+  isIconModeOn = (saved === "on");
+  const radio = document.querySelector(`input[name='iconMode'][value='${saved}']`);
+  if (radio) radio.checked = true;
+  if (isIconModeOn) fetchIconFileList();
 })();
 
 function redraw() {
@@ -4115,9 +4113,15 @@ applyDisplayMode(savedDisplayMode);
 document.querySelectorAll("input[name='obstacle']").forEach(r => {
   r.addEventListener("change", e => {
     isObstacleVisible = (e.target.value === "on");
+    localStorage.setItem("obstacle", e.target.value);
     redraw();
   });
 });
+
+// obstacle初期化
+const savedObstacle = localStorage.getItem("obstacle") || "on";
+isObstacleVisible = (savedObstacle === "on");
+document.querySelector(`input[name='obstacle'][value='${savedObstacle}']`).checked = true;
 
 document.querySelectorAll("input[name='mapSelect']").forEach(r => {
   r.addEventListener("change", e => applyMapSelect(e.target.value));
