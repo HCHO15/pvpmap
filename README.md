@@ -68,7 +68,7 @@ A tactical PvP simulation tool for Blue Archive.
 |--------|------|
 | ライト | 白背景の標準表示 |
 | ダーク | ダークモード |
-| アロナ | 背景画像付きの半透明UI |
+| アロナ | シッテムの箱風背景 |
 
 ---
 
@@ -94,3 +94,4 @@ https://docs.google.com/forms/d/e/1FAIpQLSfYnSxyBftTE8hRrijhFfLnJLUf-vUuWeSvyoZk
 ## 更新履歴
 2026/06/01 公開
 2026/06/02 初期設定を修正
+2026/08/14 S11のマップを更新、ドラム缶の爆発範囲を表示する機能を追加
