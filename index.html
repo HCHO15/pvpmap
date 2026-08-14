@@ -710,6 +710,10 @@ body.dark-mode .icon-tab.active {
         <input type="checkbox" id="chkSummon">
         <span data-i18n="summon">召喚物を考慮</span>
       </label>
+      <label id="drumLabel" style="display:none; align-items:center; gap:4px;">
+        <input type="checkbox" id="chkDrum">
+        <span>ドラム缶を起爆</span>
+      </label>
         <button id="btnSettings" style="margin-left:auto;" data-i18n="settings">⚙ 設定</button>
       </div>
 
@@ -1253,6 +1257,10 @@ bgObstacleImages.s11.onload = () => { if (currentMap === "s11") redraw(); };
 function applyMapSelect(map) {
   currentMap = map;
   localStorage.setItem("mapSelect", map);
+
+  // ドラム缶ラベルはS11のみ表示
+  const drumLabel = document.getElementById("drumLabel");
+  if (drumLabel) drumLabel.style.display = map === "s11" ? "flex" : "none";
 
   // ラジオボタン反映
   const r = document.querySelector(`input[name='mapSelect'][value='${map}']`);
@@ -3009,8 +3017,45 @@ memoInput.addEventListener("input", () => {
   if (isIconModeOn) fetchIconFileList();
 })();
 
+/** ドラム缶起爆の円を描画（S11選択＋チェック時のみ） */
+function drawDrumExplosion() {
+  const chkDrum = document.getElementById("chkDrum");
+  if (currentMap !== "s11" || !chkDrum || !chkDrum.checked) return;
+
+  const scale = 129 / 350; // 範囲確認と同じcm→Canvas座標変換
+  const DRUM_RADIUS = 250 * scale;
+  const DRUM_COLOR  = "rgba(255, 220, 0, 0.75)";
+  const DRUM_FILL   = "rgba(255, 220, 0, 0.12)";
+  const centers = [
+    { x: 143, y: 22 },
+    { x: -120, y: 22 },
+  ];
+
+  centers.forEach(center => {
+    const { cx, cy } = logicalToCanvas(center.x, center.y);
+
+    // 塗りつぶし
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, DRUM_RADIUS, 0, Math.PI * 2);
+    ctx.fillStyle = DRUM_FILL;
+    ctx.fill();
+    ctx.restore();
+
+    // 外周線
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, DRUM_RADIUS, 0, Math.PI * 2);
+    ctx.strokeStyle = DRUM_COLOR;
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+    ctx.restore();
+  });
+}
+
 function redraw() {
   clearCanvas();
+  drawDrumExplosion();
   drawIconArrows();
   [...redPoints, ...bluePoints].forEach(drawPoint);
   applySubFunction();
@@ -4126,6 +4171,8 @@ document.querySelector(`input[name='obstacle'][value='${savedObstacle}']`).check
 document.querySelectorAll("input[name='mapSelect']").forEach(r => {
   r.addEventListener("change", e => applyMapSelect(e.target.value));
 });
+
+document.getElementById("chkDrum").addEventListener("change", () => redraw());
 
 // マップ選択の初期化
 applyMapSelect(currentMap);
