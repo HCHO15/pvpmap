@@ -721,7 +721,7 @@ body.dark-mode .icon-tab.active {
 
   <div style="display:flex; align-items:center; gap:6px;">
     <span data-i18n="radius">半径(cm)：</span>
-    <input type="range" id="radiusSlider" min="50" max="1200" step="10" value="700">
+    <input type="range" id="radiusSlider" min="50" max="1500" step="10" value="700">
     <span id="radiusValue">700</span>
     <div style="display:flex; flex-direction:column; margin-left:4px;">
       <button id="radiusPlus"  style="font-size:10px; padding:1px 4px; line-height:10px;">▲</button>
@@ -1046,7 +1046,8 @@ body.dark-mode .icon-tab.active {
     <div style="margin-bottom:8px;">
       <div><strong data-i18n="mapLabel">マップ</strong></div>
       <label><input type="radio" name="mapSelect" value="s10" checked> S10</label><br>
-      <label><input type="radio" name="mapSelect" value="s11"> S11</label>
+      <label><input type="radio" name="mapSelect" value="s11"> S11</label><br>
+      <label><input type="radio" name="mapSelect" value="s12"> S12</label>
     </div>
 
     <div style="margin-bottom:8px;" id="obstacleSection">
@@ -1174,6 +1175,11 @@ let bluePoints = [];
 
 let basePoint = null;
 
+// キャンバス全体の拡大縮小率（マップ・点・描画・アイコン共通）
+let canvasZoom = 1;
+const CANVAS_ZOOM_MIN = 0.5;
+const CANVAS_ZOOM_MAX = 4;
+
 let isDarkMode = false;
 let isObstacleVisible = true;
 
@@ -1186,7 +1192,7 @@ const dragState = {
   
 /* ▼ 半径変更処理を統合 */
 function updateRadius(newValue) {
-  const v = Math.min(1200, Math.max(50, Number(newValue)));
+  const v = Math.min(1500, Math.max(50, Number(newValue)));
   radiusSlider.value = v;
   radiusValue.textContent = v;
   shortcutSelect.value = "manual";
@@ -1244,26 +1250,32 @@ function getLightColorByColor(color) {
 const bgImages = {
   s10: new Image(),
   s11: new Image(),
+  s12: new Image(),
 };
 bgImages.s10.src = "S10 map.png";
 bgImages.s11.src = "S11 map.png";
+bgImages.s12.src = "S12 map.png";
 
 const bgObstacleImages = {
   s10: new Image(),
   s11: new Image(),
+  s12: new Image(),
 };
 bgObstacleImages.s10.src = "S10 map 遮蔽.png";
 bgObstacleImages.s11.src = "S11 map 遮蔽.png";
+bgObstacleImages.s12.src = "S12 map 遮蔽.png";
 
 let currentMap = localStorage.getItem("mapSelect") || "s11";
 let bgLoaded = false;
 bgImages.s10.onload = () => { bgLoaded = true; redraw(); };
 bgImages.s11.onload = () => { if (currentMap === "s11") redraw(); };
+bgImages.s12.onload = () => { if (currentMap === "s12") redraw(); };
 
 const bgImage2 = bgObstacleImages.s10; // 後方互換用
 let bg2Loaded = false;
 bgObstacleImages.s10.onload = () => { bg2Loaded = true; redraw(); };
 bgObstacleImages.s11.onload = () => { if (currentMap === "s11") redraw(); };
+bgObstacleImages.s12.onload = () => { if (currentMap === "s12") redraw(); };
 
 function applyMapSelect(map) {
   currentMap = map;
@@ -1281,10 +1293,10 @@ function applyMapSelect(map) {
 }
 
 function logicalToCanvas(x, y) {
-  return { cx: originX + x, cy: originY - y };
+  return { cx: originX + x * canvasZoom, cy: originY - y * canvasZoom };
 }
 function canvasToLogical(cx, cy) {
-  return { x: cx - originX, y: originY - cy };
+  return { x: (cx - originX) / canvasZoom, y: (originY - cy) / canvasZoom };
 }
 
 function makeCoordCell(color, id, axis) {
@@ -1486,7 +1498,7 @@ function drawCircle(cx, cy, r, color) {
   ctx.strokeStyle = color;
   ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.arc(cx, cy, r * canvasZoom, 0, Math.PI * 2);
   ctx.stroke();
   ctx.restore();
 }
@@ -1523,6 +1535,10 @@ function drawBackgroundImage(img, alpha = 1.0) {
   const y = (height - h) / 2;
 
   ctx.save();
+  // 背景画像も点・描画と同じ中心・倍率で拡縮する
+  ctx.translate(originX, originY);
+  ctx.scale(canvasZoom, canvasZoom);
+  ctx.translate(-originX, -originY);
   ctx.globalAlpha = alpha;
   ctx.drawImage(img, x, y, w, h);
   ctx.restore();
@@ -1606,7 +1622,7 @@ function drawHighlightCircle(point, color) {
   ctx.strokeStyle = drawColor;
   ctx.lineWidth = currentMap === "s11" ? 4 : 3;
   ctx.beginPath();
-  ctx.arc(cx, cy, POINT_RADIUS + 5, 0, Math.PI * 2);
+  ctx.arc(cx, cy, (POINT_RADIUS + 5) * canvasZoom, 0, Math.PI * 2);
   ctx.stroke();
   ctx.restore();
 }
@@ -1619,7 +1635,7 @@ function drawDashedCircleLogical(center, radius, color) {
   ctx.strokeStyle = color;
   ctx.lineWidth = 3;                
   ctx.beginPath();
-  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.arc(cx, cy, radius * canvasZoom, 0, Math.PI * 2);
   ctx.stroke();
   ctx.restore();
 }
@@ -1827,8 +1843,8 @@ function fillAnnularSector(cx, cy, innerR, outerR, angleDeg, directionRad, color
   ctx.fillStyle = color;
 
   ctx.beginPath();
-  ctx.arc(cx, cy, outerR, start, end, false);
-  ctx.arc(cx, cy, innerR, end, start, true);
+  ctx.arc(cx, cy, outerR * canvasZoom, start, end, false);
+  ctx.arc(cx, cy, innerR * canvasZoom, end, start, true);
   ctx.closePath();
   ctx.fill();
 
@@ -1870,9 +1886,9 @@ function drawRotatedRect(cx, cy, w, h, angleRad, color, mode = "center") {
   ctx.fillStyle = color;
 
   if (mode === "center") {
-    ctx.fillRect(-w / 2, -h / 2, w, h);
+    ctx.fillRect(-w * canvasZoom / 2, -h * canvasZoom / 2, w * canvasZoom, h * canvasZoom);
   } else {
-    ctx.fillRect(0, -h / 2, w, h);
+    ctx.fillRect(0, -h * canvasZoom / 2, w * canvasZoom, h * canvasZoom);
   }
 
   ctx.restore();
@@ -1892,12 +1908,12 @@ function drawSectorRaw({ cx, cy, radius, angleDeg, directionRad, color }) {
 
   if (angleDeg >= 360) {
     ctx.beginPath();
-    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.arc(cx, cy, radius * canvasZoom, 0, Math.PI * 2);
     ctx.fill();
   } else {
     ctx.beginPath();
     ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, radius, start, end);
+    ctx.arc(cx, cy, radius * canvasZoom, start, end);
     ctx.closePath();
     ctx.fill();
   }
@@ -1917,7 +1933,7 @@ function drawDashedSectorRaw({ cx, cy, radius, angleDeg, directionRad, color }) 
   ctx.lineWidth = 3;
   ctx.beginPath();
   ctx.moveTo(cx, cy);
-  ctx.arc(cx, cy, radius, start, end, false);
+  ctx.arc(cx, cy, radius * canvasZoom, start, end, false);
   ctx.closePath();
   ctx.stroke();
   ctx.restore();
@@ -1936,8 +1952,8 @@ function drawRingSectorRaw({ cx, cy, inner, outer, angleDeg, directionRad, color
   ctx.fillStyle = color;
 
   ctx.beginPath();
-  ctx.arc(cx, cy, outer, start, end, false);
-  ctx.arc(cx, cy, inner, end, start, true);
+  ctx.arc(cx, cy, outer * canvasZoom, start, end, false);
+  ctx.arc(cx, cy, inner * canvasZoom, end, start, true);
   ctx.closePath();
   ctx.fill();
 
@@ -1981,7 +1997,7 @@ function drawHinataEX(ctx, basePoint, nearestOppositePoint, scale) {
     const lp = rot(c.x, c.y);                 // 論理座標
     const { cx, cy } = logicalToCanvas(lp.x, lp.y); // キャンバス座標へ変換
     ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.arc(cx, cy, r * canvasZoom, 0, Math.PI * 2);
     ctx.fill();
   });
 
@@ -2024,7 +2040,7 @@ function drawHibikiEX(centerB, angleDeg, color) {
   function drawCircleAt(p) {
     const { cx, cy } = logicalToCanvas(p.x, p.y);
     ctx.beginPath();
-    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.arc(cx, cy, R * canvasZoom, 0, Math.PI * 2);
     ctx.fill();
   }
 
@@ -2273,7 +2289,7 @@ function handleHarunaNewyearEX(self, scale) {
     ctx.save();
     ctx.fillStyle = fillColor;
     ctx.beginPath();
-    ctx.arc(cx, cy, 200 * scale, 0, Math.PI * 2);
+    ctx.arc(cx, cy, 200 * scale * canvasZoom, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.strokeStyle = "rgba(255, 235, 59, 0.95)";
@@ -2284,7 +2300,7 @@ function handleHarunaNewyearEX(self, scale) {
 
     for (let r = 0; r < ringCount; r++) {
       ctx.beginPath();
-      ctx.arc(cx, cy, 200 * scale - r * ringGap, 0, Math.PI * 2);
+      ctx.arc(cx, cy, (200 * scale - r * ringGap) * canvasZoom, 0, Math.PI * 2);
       ctx.stroke();
     }
 
@@ -2301,7 +2317,7 @@ function handleYuzuNS(self, scale) {
   ctx.save();
   ctx.fillStyle = fillColor;
   ctx.beginPath();
-  ctx.arc(cx, cy, 100 * scale, 0, Math.PI * 2);
+  ctx.arc(cx, cy, 100 * scale * canvasZoom, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
 }
@@ -3172,11 +3188,21 @@ function drawDrumExplosion() {
 
 function redraw() {
   clearCanvas();
+  // logicalToCanvas/canvasToLogical が拡縮を処理するため、描画全体への
+  // 追加transformは行わない（座標の二重拡縮を防止）。背景は drawBackgroundImage 内で同期。
   drawDrumExplosion();
   drawIconArrows();
   [...redPoints, ...bluePoints].forEach(drawPoint);
   applySubFunction();
 }
+
+// キャンバス上でホイール操作：マップと描画全体を拡大・縮小
+canvas.addEventListener("wheel", e => {
+  e.preventDefault();
+  const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
+  canvasZoom = Math.min(CANVAS_ZOOM_MAX, Math.max(CANVAS_ZOOM_MIN, canvasZoom * factor));
+  redraw();
+}, { passive: false });
 
 /* =========================
    ① キャンバス操作系
