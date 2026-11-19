@@ -776,6 +776,7 @@ body.dark-mode .icon-tab.active {
       <option value="hoshinoRinsenSS" data-i18n="scHoshinoRinsenSS">ホシノ（臨戦）SS</option>
       <option value="marinaEX" data-i18n="scMarinaEX">マリナEX</option>
       <option value="midoriEX" data-i18n="scMidoriEX">ミドリEX</option>
+      <option value="lana" data-i18n="scLana">ラナEX2</option>
       <option value="minoriEX" data-i18n="scMinoriEX">ミノリEX</option>
       <option value="minoriNS" data-i18n="scMinoriNS">ミノリNS</option>
       <option value="serikaMizugiEX" data-i18n="scSerikaMizugiEX">セリカ（水着）EX</option>
@@ -1681,12 +1682,12 @@ const presetDefaultEnabled = {
   ioriEX: true,
   kanoeNS: true,
   yukariMizugiEX: true,
-  keiEX: false,
+  keiEX: true,
   cherinoEX: false,
   serikaMizugiEX: true,
   serikaMizugiNS: true,
   harukaEX: true,
-  kirinoNS: true,
+  kirinoNS: false,
   koharuMizugiEX: true,
   tsumugiEX: false,
   makotoMizugiEX: true,
@@ -1698,12 +1699,12 @@ const presetDefaultEnabled = {
   sayaCasualEX: false,
   shirokoRidingNS: false,
   shunEXAA: true,
-  junkoEX: false,
+  junkoEX: true,
   sumireEX: true,
   kotoriCheerEX: true,
   tsubakiEX: true,
   tsurugiEXAA: true,
-  tokiEX: false,
+  tokiEX: true,
   nagisaEX: true,
   nonomiEX: false,
   hasumiMizugiEX: true,
@@ -1730,8 +1731,9 @@ const presetDefaultEnabled = {
   yakumoEX: true,
   yuzuEX: false,
   yuzuNS: false,
+  lana: true,
   reisaEX: true,
-  reisaMagicEX: true
+  reisaMagicEX: true,
 };
   
 const rangePresets = {
@@ -1749,6 +1751,7 @@ const rangePresets = {
   nonomiEX:      { shape: "sector", center: "self",       params: { radius: 950, angleDeg: 60  } },
   hinaMizugiEX:  { shape: "sector", center: "self",       params: { radius: 950, angleDeg: 90  } },
   midoriEX:      { shape: "sector", center: "self",       params: { radius: 950, angleDeg: 360 } },
+  lana:           { shape: "sector", center: "self",       params: { radius: 1500, angleDeg: 360 } },
   minoriEX:      { shape: "sector", center: "centroidOpp",params: { radius: 300, angleDeg: 360 } },
   minoriNS:      { shape: "sector", center: "centroidOpp",params: { radius: 300, angleDeg: 360 } },
   reisaEX1:      { shape: "sector", center: "self",       params: { radius: 700, angleDeg: 90 } },
@@ -2091,6 +2094,7 @@ const specialHandlers = {
   harunaNewyearEX: handleHarunaNewyearEX,
   hinaMizugiEX: handleHinaMizugiEX,
   midoriEX: handleMidoriEX,
+  lana: handleLana,
   yuzuNS: handleYuzuNS,
   shunEXAA: handleShunEXAA,
   hibikiNS: handleHibikiNS
@@ -2215,6 +2219,24 @@ function handleHinaMizugiEX(self, scale) {
     .filter(o => o.d2 <= limitR * limitR && Math.abs(o.diff) <= halfAngle)
     .sort((a, b) => a.d2 - b.d2)
     .slice(0, 5);
+
+  drawSpecialTargetHighlights(targets, scale);
+}
+
+function handleLana(self, scale) {
+  const others = getOppositePointsByColor(basePoint.color);
+  const limitR = 1500 * scale;
+  const limitColor = basePoint.color === "red"
+    ? "rgba(229,57,53,0.55)"
+    : "rgba(30,136,229,0.55)";
+  drawDashedCircleLogical(self, limitR, limitColor);
+
+  // 円内の異色点を基準点から近い順に最大8点選択する。
+  const targets = others
+    .map(p => ({ p, d2: dist2(self, p) }))
+    .filter(o => o.d2 <= limitR * limitR)
+    .sort((a, b) => a.d2 - b.d2)
+    .slice(0, 8);
 
   drawSpecialTargetHighlights(targets, scale);
 }
@@ -3865,7 +3887,7 @@ const LANGS = {
     scHasumiMizugiEX: "ハスミ（水着）EX", scHanakoMizugiEX: "ハナコ（水着）EX",
     scHarunaNewyearEX: "ハルナ（正月）EX", scHarukaEX: "ハルカEX",
     scHinaDressEX: "ヒナ（ドレス）EX", scHinaMizugiEX: "ヒナ（水着）EX",
-    scMidoriEX: "ミドリEX", scSerikaMizugiEX: "セリカ（水着）EX", scSerikaMizugiNS: "セリカ（水着）NS",
+    scMidoriEX: "ミドリEX", scLana: "ラナEX2", scSerikaMizugiEX: "セリカ（水着）EX", scSerikaMizugiNS: "セリカ（水着）NS",
     scHinataEX: "ヒナタEX", scHinataMizugiNS: "ヒナタ（水着）NS",
     scHibikiEX: "ヒビキEX", scHibikiNS: "ヒビキNS※対象を選択",
     scHihumiEX: "ヒフミEX", scHiyoriMizugiEX: "ヒヨリ（水着）EX",
@@ -3992,7 +4014,7 @@ const LANGS = {
     scHasumiMizugiEX: "Hasumi(Swimsuit)EX", scHanakoMizugiEX: "Hanako(Swimsuit)EX",
     scHarunaNewyearEX: "Haruna(New Year)EX", scHarukaEX: "HarukaEX",
     scHinaDressEX: "Hina(Dress)EX", scHinaMizugiEX: "Hina(Swimsuit)EX",
-    scMidoriEX: "MidoriEX", scSerikaMizugiEX: "Serika(Swimsuit)EX", scSerikaMizugiNS: "Serika(Swimsuit)NS",
+    scMidoriEX: "MidoriEX", scLana: "Lana EX2", scSerikaMizugiEX: "Serika(Swimsuit)EX", scSerikaMizugiNS: "Serika(Swimsuit)NS",
     scHinataEX: "HinataEX", scHinataMizugiNS: "Hinata(Swimsuit)NS",
     scHibikiEX: "HibikiEX", scHibikiNS: "HibikiNS※Select target",
     scHihumiEX: "HihumiEX", scHiyoriMizugiEX: "Hiyori(Swimsuit)EX",
@@ -4119,7 +4141,7 @@ const LANGS = {
     scHasumiMizugiEX: "하스미(수영복)EX", scHanakoMizugiEX: "하나코(수영복)EX",
     scHarunaNewyearEX: "하루나(새해)EX", scHarukaEX: "하루카EX",
     scHinaDressEX: "히나(드레스)EX", scHinaMizugiEX: "히나(수영복)EX",
-    scMidoriEX: "미도리EX", scSerikaMizugiEX: "세리카(수영복)EX", scSerikaMizugiNS: "세리카(수영복)NS",
+    scMidoriEX: "미도리EX", scLana: "라나EX2", scSerikaMizugiEX: "세리카(수영복)EX", scSerikaMizugiNS: "세리카(수영복)NS",
     scHinataEX: "히나타EX", scHinataMizugiNS: "히나타(수영복)NS",
     scHibikiEX: "히비키EX", scHibikiNS: "히비키NS※대상 선택",
     scHihumiEX: "히후미EX", scHiyoriMizugiEX: "히요리(수영복)EX",
